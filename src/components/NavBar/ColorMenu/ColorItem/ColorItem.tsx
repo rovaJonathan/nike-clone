@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { ColorItemEnum } from "../../../../interface/ColorInterface";
+import bgMulticolore from "../../../../images/multicolore.png";
 
 const ColorItem: FC<{
   color: string;
@@ -15,6 +16,13 @@ const ColorItem: FC<{
     >
       <div
         className={`w-5 h-5 rounded-2xl ${color} border border-gray-300 hover:border-gray-400 flex flex-row justify-center items-center`}
+        style={{
+          backgroundImage:
+            value === ColorItemEnum.multiple
+              ? `url(${bgMulticolore})`
+              : undefined,
+          backgroundRepeat: "contain",
+        }}
       >
         {isChecked && (
           <svg

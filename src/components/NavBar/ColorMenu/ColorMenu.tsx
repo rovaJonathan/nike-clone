@@ -58,7 +58,7 @@ const colors: ColorItemInterface[] = [
     label: "Orange",
   },
   {
-    color: "bg-black",
+    color: "",
     value: ColorItemEnum.multiple,
     label: "Multicolore",
   },
