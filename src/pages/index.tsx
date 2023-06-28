@@ -1,14 +1,21 @@
-import * as React from "react";
+import React, { FC } from "react";
 import type { HeadFC, PageProps } from "gatsby";
+import Header from "../components/Header";
+import NavBar from "../components/NavBar";
 
-const IndexPage: React.FC<PageProps> = () => {
+const IndexPage: FC<PageProps> = () => {
   return (
     <main>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+      <div className="container mx-auto">
+        <Header />
+        <div className="flex-row w-56">
+          <NavBar />
+        </div>
+      </div>
     </main>
   );
 };
 
 export default IndexPage;
 
-export const Head: HeadFC = () => <title>Home Page</title>;
+export const Head: HeadFC = () => <title>Nike</title>;
