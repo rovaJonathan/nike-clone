@@ -5,10 +5,10 @@ import CheckBox from "../../CheckBox";
 const SexMenu: FC = () => {
   const [checkboxes, setCheckboxes] = useState([false, false, false]);
 
-  const numberOfSelect = useMemo(
-    () => checkboxes.filter((e) => e).length,
-    [checkboxes]
-  );
+  const numberOfSelect = useMemo(() => {
+    const nb = checkboxes.filter((e) => e).length;
+    return nb === 0 ? "" : ` (${nb})`;
+  }, [checkboxes]);
 
   const handleCheckboxChange = (index: number) => {
     const updatedCheckboxes = [...checkboxes];
@@ -18,7 +18,7 @@ const SexMenu: FC = () => {
 
   return (
     <MenuDrawer
-      title={`Sexe (${numberOfSelect})`}
+      title={`Sexe${numberOfSelect}`}
       child={
         <>
           <CheckBox

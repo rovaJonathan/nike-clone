@@ -5,10 +5,10 @@ import CheckBox from "../../CheckBox";
 const PriceMenu: FC = () => {
   const [checkboxes, setCheckboxes] = useState([false, false, false, false]);
 
-  const numberOfSelect = useMemo(
-    () => checkboxes.filter((e) => e).length,
-    [checkboxes]
-  );
+  const numberOfSelect = useMemo(() => {
+    const nb = checkboxes.filter((e) => e).length;
+    return nb === 0 ? "" : ` (${nb})`;
+  }, [checkboxes]);
 
   const handleCheckboxChange = (index: number) => {
     const updatedCheckboxes = [...checkboxes];
@@ -18,7 +18,7 @@ const PriceMenu: FC = () => {
 
   return (
     <MenuDrawer
-      title={`Recherche par prix (${numberOfSelect})`}
+      title={`Recherche par prix${numberOfSelect}`}
       child={
         <>
           <CheckBox
