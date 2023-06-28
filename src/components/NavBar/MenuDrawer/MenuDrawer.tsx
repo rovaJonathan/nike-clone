@@ -12,7 +12,7 @@ const MenuDrawer: FC<{ child: JSX.Element; title: string }> = ({
 
   return (
     <div className="border-t border-gray-200 border-solid border-t-1">
-      <div className="flex flex-row justify-between pt-2 items-center">
+      <div className="flex flex-row justify-between pt-2 items-center pb-2">
         <span className="text-sm">{title}</span>
         <div onClick={handleOnClick} className="cursor-pointer">
           {isOpen ? (

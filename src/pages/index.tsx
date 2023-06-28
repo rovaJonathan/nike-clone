@@ -8,7 +8,7 @@ const IndexPage: FC<PageProps> = () => {
     <main>
       <div className="container mx-auto">
         <Header />
-        <div className="flex-row w-56">
+        <div className="flex-row w-fit">
           <NavBar />
         </div>
       </div>
