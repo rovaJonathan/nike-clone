@@ -21,7 +21,7 @@ const ColorItem: FC<{
             value === ColorItemEnum.multiple
               ? `url(${bgMulticolore})`
               : undefined,
-          backgroundRepeat: "contain",
+          backgroundSize: "contain",
         }}
       >
         {isChecked && (
