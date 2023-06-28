@@ -6,9 +6,9 @@ import NavBar from "../components/NavBar";
 const IndexPage: FC<PageProps> = () => {
   return (
     <main>
-      <div className="container mx-auto">
+      <div className="container mx-auto box-border">
         <Header />
-        <div className="flex-row w-fit">
+        <div className="flex-row">
           <NavBar />
         </div>
       </div>
