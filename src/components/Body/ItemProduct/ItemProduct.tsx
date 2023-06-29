@@ -1,21 +1,14 @@
 import React, { FC } from "react";
+import { useGetImageByName } from "../../../graphql/query";
+import Img from "gatsby-image";
 
-const ItemProduct: FC<{ imageUrl: string; baseUrl: string }> = ({
-  imageUrl,
-  baseUrl,
-}) => {
-  const backgroundImageStyle = {
-    backgroundImage: `url(${baseUrl}images/multicolore.png)`,
-    backgroundSize: "content",
-    backgroundPosition: "center",
-    with: "100%",
-  };
-
-  console.log(backgroundImageStyle);
-
+const ItemProduct: FC<{ imageUrl: string }> = ({ imageUrl }) => {
+  const image = useGetImageByName(imageUrl);
   return (
     <div className="cursor-pointer">
-      <div style={backgroundImageStyle}></div>
+      <div>
+        <Img fluid={image} alt="Image" />
+      </div>
       <div className="">
         <h3>Name</h3>
         <p>Type</p>
@@ -27,3 +20,31 @@ const ItemProduct: FC<{ imageUrl: string; baseUrl: string }> = ({
 };
 
 export default ItemProduct;
+
+// import React, { FC } from "react";
+// import { graphql } from "gatsby";
+// import Img from "gatsby-image";
+
+// const ImagePage: FC<{ data: any }> = ({ data }) => {
+//   const { image } = data;
+
+//   return (
+//     <div>
+//       <Img fluid={image.childImageSharp.fluid} alt="Image" />
+//     </div>
+//   );
+// };
+
+// export const query = graphql`
+//   query ($imageName: String!) {
+//     image: file(relativePath: { eq: $imageName }) {
+//       childImageSharp {
+//         fluid {
+//           ...GatsbyImageSharpFluid
+//         }
+//       }
+//     }
+//   }
+// `;
+
+// export default ImagePage;

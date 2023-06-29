@@ -1,15 +1,26 @@
 import { graphql, useStaticQuery } from "gatsby";
 
-const useGetImageByName = (name: string) => {
+export const useGetImageByName = (name: string): any => {
   const data = useStaticQuery(graphql`
     query {
-      image1: file(relativePath: { eq: "image-1.jpg" }) {
-        childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid
+      images: allFile(filter: { sourceInstanceName: { eq: "images" } }) {
+        edges {
+          node {
+            relativePath
+            childImageSharp {
+              fluid {
+                ...GatsbyImageSharpFluid
+              }
+            }
           }
         }
       }
     }
   `);
+
+  const image = data.images.edges.find((n: any) => {
+    return n.node.relativePath === name;
+  });
+
+  return image.node.childImageSharp.fluid;
 };
