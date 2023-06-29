@@ -4,11 +4,13 @@ import FilterInterface from "../../interface/FilterInterface";
 import { SexEnum } from "../../interface/SexInterface";
 import { PriceEnum } from "../../interface/PriceInterface";
 import { ColorItemEnum } from "../../interface/ColorInterface";
+import formatProducts from "../../utils/FormatProducts";
 
 const initialState: FilterInterface = {
   sexes: [],
   prices: [],
   colors: [],
+  products: formatProducts(),
 };
 
 const filterSlice = createSlice({
@@ -50,6 +52,7 @@ const filterSlice = createSlice({
       }
       state.colors = updatedColors;
     },
+    getProducts(state, action) {},
   },
 });
 

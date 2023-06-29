@@ -46,6 +46,7 @@ const ModalFilter: FC<{ isOpen: boolean; onClose: () => void }> = ({
         colors: [],
         prices: [],
         sexes: [],
+        products: [],
       })
     );
   };
