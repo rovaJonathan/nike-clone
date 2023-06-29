@@ -7,16 +7,22 @@ import { PriceEnum } from "../../interface/PriceInterface";
 import { ColorItemEnum } from "../../interface/ColorInterface";
 
 const Body: FC = () => {
-  const { colors, products, sexes, prices } = useAppSelector(selectFilter);
+  const { colors, products, sexes, prices, sports } =
+    useAppSelector(selectFilter);
   const dispatch = useAppDispatch();
 
   const data = useMemo(() => {
-    if (!colors.length && !sexes.length && !prices.length) {
+    if (!colors.length && !sexes.length && !prices.length && !sports.length) {
       return products;
     }
     const sexesResult = products.filter((product) =>
       sexes.includes(product.sex)
     );
+
+    const sportsResults = products.filter((product) =>
+      sports.includes(product.sport)
+    );
+
     const pricesResult = products.filter((product) => {
       if (prices.length === 0) {
         return false;
@@ -49,8 +55,11 @@ const Body: FC = () => {
       }
       return false;
     });
-    return uniqBy([...sexesResult, ...pricesResult, ...colorsResults], "id");
-  }, [colors, products, sexes, prices, dispatch]);
+    return uniqBy(
+      [...sexesResult, ...pricesResult, ...colorsResults, ...sportsResults],
+      "id"
+    );
+  }, [colors, products, sexes, prices, sports, dispatch]);
 
   return (
     <div className="flex-1 grid grid-cols-2 md:grid-cols-3 gap-2 overflow-scroll max-h-full md:max-h-screen">

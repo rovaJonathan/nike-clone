@@ -6,6 +6,7 @@ import { PriceEnum } from "../../interface/PriceInterface";
 import { ColorItemEnum } from "../../interface/ColorInterface";
 import formatProducts from "../../utils/FormatProducts";
 import uniqBy from "lodash/uniqBy";
+import { SportEnum } from "../../interface/SportInterface";
 
 export const initialStateFilter: FilterInterface = {
   sexes: [],
@@ -13,6 +14,7 @@ export const initialStateFilter: FilterInterface = {
   colors: [],
   products: formatProducts(),
   dataFiltered: formatProducts(),
+  sports: [],
 };
 
 const filterSlice = createSlice({
@@ -23,6 +25,7 @@ const filterSlice = createSlice({
       state.colors = action.payload.colors;
       state.prices = action.payload.prices;
       state.sexes = action.payload.sexes;
+      state.sports = action.payload.sports;
     },
     setSex(state, action: PayloadAction<SexEnum>) {
       const updatedSexes = [...state.sexes];
@@ -53,6 +56,16 @@ const filterSlice = createSlice({
         updatedColors.splice(index, 1);
       }
       state.colors = updatedColors;
+    },
+    setSport(state, action: PayloadAction<SportEnum>) {
+      const updatedSport = [...state.sports];
+      const index = updatedSport.indexOf(action.payload);
+      if (index === -1) {
+        updatedSport.push(action.payload);
+      } else {
+        updatedSport.splice(index, 1);
+      }
+      state.sports = updatedSport;
     },
     getProducts(state, action) {
       console.log("getProducts");
@@ -105,7 +118,7 @@ const filterSlice = createSlice({
   },
 });
 
-export const { setFilter, setSex, setColor, setPrice, getProducts } =
+export const { setFilter, setSex, setColor, setPrice, getProducts, setSport } =
   filterSlice.actions;
 
 export const selectFilter = (state: RootState) => state.filter;
