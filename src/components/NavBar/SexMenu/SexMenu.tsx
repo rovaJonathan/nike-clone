@@ -1,19 +1,20 @@
 import React, { FC, useMemo, useState } from "react";
 import MenuDrawer from "../MenuDrawer";
 import CheckBox from "../../CheckBox";
+import { selectFilter, setSex } from "../../../redux/filter/filter";
+import { useAppDispatch, useAppSelector } from "../../../redux/app/hooks";
+import { SexEnum } from "../../../interface/SexInterface";
 
 const SexMenu: FC = () => {
-  const [checkboxes, setCheckboxes] = useState([false, false, false]);
+  const { sexes } = useAppSelector(selectFilter);
+  const dispatch = useAppDispatch();
 
   const numberOfSelect = useMemo(() => {
-    const nb = checkboxes.filter((e) => e).length;
-    return nb === 0 ? "" : ` (${nb})`;
-  }, [checkboxes]);
+    return sexes.length === 0 ? "" : ` (${sexes.length})`;
+  }, [sexes]);
 
-  const handleCheckboxChange = (index: number) => {
-    const updatedCheckboxes = [...checkboxes];
-    updatedCheckboxes[index] = !updatedCheckboxes[index];
-    setCheckboxes(updatedCheckboxes);
+  const handleCheckboxChange = (value: SexEnum) => {
+    dispatch(setSex(value));
   };
 
   return (
@@ -24,20 +25,20 @@ const SexMenu: FC = () => {
           <CheckBox
             id="check-box-1"
             label="Hommes"
-            checked={checkboxes[0]}
-            onChange={() => handleCheckboxChange(0)}
+            checked={sexes.includes(SexEnum.male)}
+            onChange={() => handleCheckboxChange(SexEnum.male)}
           />
           <CheckBox
             id="check-box-2"
             label="Femmes"
-            checked={checkboxes[1]}
-            onChange={() => handleCheckboxChange(1)}
+            checked={sexes.includes(SexEnum.female)}
+            onChange={() => handleCheckboxChange(SexEnum.female)}
           />
           <CheckBox
             id="check-box-3"
             label="Mixtes"
-            checked={checkboxes[2]}
-            onChange={() => handleCheckboxChange(2)}
+            checked={sexes.includes(SexEnum.mixte)}
+            onChange={() => handleCheckboxChange(SexEnum.mixte)}
           />
         </>
       }

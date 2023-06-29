@@ -1,19 +1,20 @@
 import React, { FC, useMemo, useState } from "react";
 import MenuDrawer from "../MenuDrawer";
 import CheckBox from "../../CheckBox";
+import { useAppDispatch, useAppSelector } from "../../../redux/app/hooks";
+import { selectFilter, setPrice } from "../../../redux/filter/filter";
+import { PriceEnum } from "../../../interface/PriceInterface";
 
 const PriceMenu: FC = () => {
-  const [checkboxes, setCheckboxes] = useState([false, false, false, false]);
+  const { prices } = useAppSelector(selectFilter);
+  const dispatch = useAppDispatch();
 
   const numberOfSelect = useMemo(() => {
-    const nb = checkboxes.filter((e) => e).length;
-    return nb === 0 ? "" : ` (${nb})`;
-  }, [checkboxes]);
+    return prices.length === 0 ? "" : ` (${prices.length})`;
+  }, [prices]);
 
-  const handleCheckboxChange = (index: number) => {
-    const updatedCheckboxes = [...checkboxes];
-    updatedCheckboxes[index] = !updatedCheckboxes[index];
-    setCheckboxes(updatedCheckboxes);
+  const handleCheckboxChange = (value: PriceEnum) => {
+    dispatch(setPrice(value));
   };
 
   return (
@@ -24,26 +25,26 @@ const PriceMenu: FC = () => {
           <CheckBox
             id="check-box-price-1"
             label="Moins de €50"
-            checked={checkboxes[0]}
-            onChange={() => handleCheckboxChange(0)}
+            checked={prices.includes(PriceEnum["0-50"])}
+            onChange={() => handleCheckboxChange(PriceEnum["0-50"])}
           />
           <CheckBox
             id="check-box-price-2"
             label="$50 - $100"
-            checked={checkboxes[1]}
-            onChange={() => handleCheckboxChange(1)}
+            checked={prices.includes(PriceEnum["50-100"])}
+            onChange={() => handleCheckboxChange(PriceEnum["50-100"])}
           />
           <CheckBox
             id="check-box-price-3"
             label="$100 - $150"
-            checked={checkboxes[2]}
-            onChange={() => handleCheckboxChange(2)}
+            checked={prices.includes(PriceEnum["100-150"])}
+            onChange={() => handleCheckboxChange(PriceEnum["100-150"])}
           />
           <CheckBox
             id="check-box-price-4"
             label="Plus de $150"
-            checked={checkboxes[3]}
-            onChange={() => handleCheckboxChange(3)}
+            checked={prices.includes(PriceEnum["150-"])}
+            onChange={() => handleCheckboxChange(PriceEnum["150-"])}
           />
         </>
       }

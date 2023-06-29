@@ -5,8 +5,10 @@ import {
   ColorItemEnum,
   ColorItemInterface,
 } from "../../../interface/ColorInterface";
+import { useAppDispatch, useAppSelector } from "../../../redux/app/hooks";
+import { selectFilter, setColor } from "../../../redux/filter/filter";
 
-const colors: ColorItemInterface[] = [
+const colorsList: ColorItemInterface[] = [
   {
     color: "bg-black",
     value: ColorItemEnum.black,
@@ -65,22 +67,15 @@ const colors: ColorItemInterface[] = [
 ];
 
 const ColorMenu: FC = () => {
-  const [checkboxes, setCheckboxes] = useState<ColorItemEnum[]>([]);
+  const { colors } = useAppSelector(selectFilter);
+  const dispatch = useAppDispatch();
 
   const numberOfSelect = useMemo(() => {
-    const nb = checkboxes.filter((e) => e).length;
-    return nb === 0 ? "" : ` (${nb})`;
-  }, [checkboxes]);
+    return colors.length === 0 ? "" : ` (${colors.length})`;
+  }, [colors]);
 
   const handleCheckboxChange = (value: ColorItemEnum) => {
-    const updatedCheckboxes = [...checkboxes];
-    const index = updatedCheckboxes.indexOf(value);
-    if (index === -1) {
-      updatedCheckboxes.push(value);
-    } else {
-      updatedCheckboxes.splice(index, 1);
-    }
-    setCheckboxes(updatedCheckboxes);
+    dispatch(setColor(value));
   };
 
   return (
@@ -88,14 +83,14 @@ const ColorMenu: FC = () => {
       title={`Couleur${numberOfSelect}`}
       child={
         <div className="grid grid-cols-3">
-          {colors.map((color) => (
+          {colorsList.map((color) => (
             <ColorItem
               key={color.value}
               color={color.color}
               value={color.value}
               label={color.label}
               onClick={handleCheckboxChange}
-              isChecked={checkboxes.includes(color.value)}
+              isChecked={colors.includes(color.value)}
             />
           ))}
         </div>
