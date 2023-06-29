@@ -1,7 +1,11 @@
 import React, { FC, useState } from "react";
 import ModalFilter from "./ModalFilter";
+import { useAppSelector } from "../../redux/app/hooks";
+import { selectFilter } from "../../redux/filter/filter";
 
 const Header: FC = () => {
+  const { dataFiltered, sex, price } = useAppSelector(selectFilter);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => {
     setIsModalOpen(true);
@@ -15,7 +19,7 @@ const Header: FC = () => {
   return (
     <div className="flex flex-row justify-between items-center py-5 px-5 md:px-0">
       <h1 className="text-2xl md:text-1xl font-semibold ">
-        Nouveautés Hommes €100 - €150 (23)
+        Nouveautés {sex ?? ""} {price ?? ""} ({dataFiltered.length})
       </h1>
       <button
         type="button"

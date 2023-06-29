@@ -6,12 +6,12 @@ import { selectFilter, setSport } from "../../../redux/filter/filter";
 import { SportEnum } from "../../../interface/SportInterface";
 
 const SportMenu: FC = () => {
-  const { sports } = useAppSelector(selectFilter);
+  const { sport } = useAppSelector(selectFilter);
   const dispatch = useAppDispatch();
 
   const numberOfSelect = useMemo(() => {
-    return sports.length === 0 ? "" : ` (${sports.length})`;
-  }, [sports]);
+    return sport === null ? "" : ` (1)`;
+  }, [sport]);
 
   const handleCheckboxChange = (value: SportEnum) => {
     dispatch(setSport(value));
@@ -25,19 +25,19 @@ const SportMenu: FC = () => {
           <CheckBox
             id="check-box-sport-1"
             label="Basket"
-            checked={sports.includes(SportEnum.basket)}
+            checked={sport === SportEnum.basket}
             onChange={() => handleCheckboxChange(SportEnum.basket)}
           />
           <CheckBox
             id="check-box-sport-2"
             label="Football"
-            checked={sports.includes(SportEnum.football)}
+            checked={sport === SportEnum.football}
             onChange={() => handleCheckboxChange(SportEnum.football)}
           />
           <CheckBox
             id="check-box-sport-3"
             label="Running"
-            checked={sports.includes(SportEnum.running)}
+            checked={sport === SportEnum.running}
             onChange={() => handleCheckboxChange(SportEnum.running)}
           />
         </>

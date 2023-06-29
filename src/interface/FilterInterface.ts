@@ -5,10 +5,10 @@ import { SexEnum } from "./SexInterface";
 import { SportEnum } from "./SportInterface";
 
 export default interface FilterInterface {
-  sexes: SexEnum[];
-  prices: PriceEnum[];
-  colors: ColorItemEnum[];
+  sex: SexEnum | null;
+  price: PriceEnum | null;
+  color: ColorItemEnum | null;
+  sport: SportEnum | null;
   products: ProductInterface[];
   dataFiltered: ProductInterface[];
-  sports: SportEnum[];
 }
