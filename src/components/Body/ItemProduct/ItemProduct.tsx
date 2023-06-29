@@ -5,46 +5,18 @@ import Img from "gatsby-image";
 const ItemProduct: FC<{ imageUrl: string }> = ({ imageUrl }) => {
   const image = useGetImageByName(imageUrl);
   return (
-    <div className="cursor-pointer">
+    <div className="cursor-pointer mb-6">
       <div>
         <Img fluid={image} alt="Image" />
       </div>
-      <div className="">
-        <h3>Name</h3>
-        <p>Type</p>
-        <p>Couleur</p>
-        <p>Price</p>
+      <div className="mt-2 pl-2 md:pl-0">
+        <h3 className="text-sm font-semibold">Jordan</h3>
+        <p className="text-gray-500 text-sm">Chaussure</p>
+        <p className="text-gray-500 text-sm">1 Couleur</p>
+        <p className="text-sm font-normal mt-2">Price</p>
       </div>
     </div>
   );
 };
 
 export default ItemProduct;
-
-// import React, { FC } from "react";
-// import { graphql } from "gatsby";
-// import Img from "gatsby-image";
-
-// const ImagePage: FC<{ data: any }> = ({ data }) => {
-//   const { image } = data;
-
-//   return (
-//     <div>
-//       <Img fluid={image.childImageSharp.fluid} alt="Image" />
-//     </div>
-//   );
-// };
-
-// export const query = graphql`
-//   query ($imageName: String!) {
-//     image: file(relativePath: { eq: $imageName }) {
-//       childImageSharp {
-//         fluid {
-//           ...GatsbyImageSharpFluid
-//         }
-//       }
-//     }
-//   }
-// `;
-
-// export default ImagePage;
