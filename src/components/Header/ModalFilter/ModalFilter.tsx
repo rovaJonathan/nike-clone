@@ -9,6 +9,7 @@ import {
   setFilter,
   setSex,
 } from "../../../redux/filter/filter";
+import SportMenu from "../../NavBar/SportMenu";
 
 const ModalFilter: FC<{ isOpen: boolean; onClose: () => void }> = ({
   isOpen,
@@ -17,13 +18,13 @@ const ModalFilter: FC<{ isOpen: boolean; onClose: () => void }> = ({
   const filter = useAppSelector(selectFilter);
   const dispatch = useAppDispatch();
 
-  const { sexes, prices, colors } = filter;
+  const { sexes, prices, colors, sports } = filter;
 
   const [oldFilter, setOldFilter] = useState(filter);
 
   const nb = useMemo(
-    () => sexes.length + colors.length + prices.length,
-    [sexes, colors, prices]
+    () => sexes.length + colors.length + prices.length + sports.length,
+    [sexes, colors, prices, sports]
   );
 
   const handleClose = (event: any) => {
@@ -71,6 +72,7 @@ const ModalFilter: FC<{ isOpen: boolean; onClose: () => void }> = ({
             <SexMenu />
             <PriceMenu />
             <ColorMenu />
+            <SportMenu />
           </div>
           <div className="w-full border-t border-gray-200 border-solid flex flex-row justify-around py-4">
             <button
