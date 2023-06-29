@@ -18,13 +18,13 @@ const ModalFilter: FC<{ isOpen: boolean; onClose: () => void }> = ({
   const filter = useAppSelector(selectFilter);
   const dispatch = useAppDispatch();
 
-  const { sexes, prices, colors, sports } = filter;
+  const { sex, price, color, sport } = filter;
 
   const [oldFilter, setOldFilter] = useState(filter);
 
   const nb = useMemo(
-    () => sexes.length + colors.length + prices.length + sports.length,
-    [sexes, colors, prices, sports]
+    () => (sex ? 1 : 0) + (color ? 1 : 0) + (price ? 1 : 0) + (sport ? 1 : 0),
+    [sex, color, price, sport]
   );
 
   const handleClose = (event: any) => {

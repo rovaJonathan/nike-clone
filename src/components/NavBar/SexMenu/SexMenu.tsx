@@ -6,12 +6,12 @@ import { useAppDispatch, useAppSelector } from "../../../redux/app/hooks";
 import { SexEnum } from "../../../interface/SexInterface";
 
 const SexMenu: FC = () => {
-  const { sexes } = useAppSelector(selectFilter);
+  const { sex } = useAppSelector(selectFilter);
   const dispatch = useAppDispatch();
 
   const numberOfSelect = useMemo(() => {
-    return sexes.length === 0 ? "" : ` (${sexes.length})`;
-  }, [sexes]);
+    return sex === null ? "" : ` (1)`;
+  }, [sex]);
 
   const handleCheckboxChange = (value: SexEnum) => {
     dispatch(setSex(value));
@@ -25,19 +25,19 @@ const SexMenu: FC = () => {
           <CheckBox
             id="check-box-1"
             label="Hommes"
-            checked={sexes.includes(SexEnum.male)}
+            checked={sex === SexEnum.male}
             onChange={() => handleCheckboxChange(SexEnum.male)}
           />
           <CheckBox
             id="check-box-2"
             label="Femmes"
-            checked={sexes.includes(SexEnum.female)}
+            checked={sex === SexEnum.female}
             onChange={() => handleCheckboxChange(SexEnum.female)}
           />
           <CheckBox
             id="check-box-3"
             label="Mixtes"
-            checked={sexes.includes(SexEnum.mixte)}
+            checked={sex === SexEnum.mixte}
             onChange={() => handleCheckboxChange(SexEnum.mixte)}
           />
         </>

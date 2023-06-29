@@ -67,12 +67,12 @@ const colorsList: ColorItemInterface[] = [
 ];
 
 const ColorMenu: FC = () => {
-  const { colors } = useAppSelector(selectFilter);
+  const { color } = useAppSelector(selectFilter);
   const dispatch = useAppDispatch();
 
   const numberOfSelect = useMemo(() => {
-    return colors.length === 0 ? "" : ` (${colors.length})`;
-  }, [colors]);
+    return color === null ? "" : ` (1)`;
+  }, [color]);
 
   const handleCheckboxChange = (value: ColorItemEnum) => {
     dispatch(setColor(value));
@@ -83,14 +83,14 @@ const ColorMenu: FC = () => {
       title={`Couleur${numberOfSelect}`}
       child={
         <div className="grid grid-cols-3">
-          {colorsList.map((color) => (
+          {colorsList.map((e) => (
             <ColorItem
-              key={color.value}
-              color={color.color}
-              value={color.value}
-              label={color.label}
+              key={e.value}
+              color={e.color}
+              value={e.value}
+              label={e.label}
               onClick={handleCheckboxChange}
-              isChecked={colors.includes(color.value)}
+              isChecked={color === e.value}
             />
           ))}
         </div>

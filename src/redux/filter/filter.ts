@@ -5,16 +5,16 @@ import { SexEnum } from "../../interface/SexInterface";
 import { PriceEnum } from "../../interface/PriceInterface";
 import { ColorItemEnum } from "../../interface/ColorInterface";
 import formatProducts from "../../utils/FormatProducts";
-import uniqBy from "lodash/uniqBy";
 import { SportEnum } from "../../interface/SportInterface";
+import ProductInterface from "../../interface/ProductInterface";
 
 export const initialStateFilter: FilterInterface = {
-  sexes: [],
-  prices: [],
-  colors: [],
+  sex: null,
+  price: null,
+  color: null,
   products: formatProducts(),
   dataFiltered: formatProducts(),
-  sports: [],
+  sport: null,
 };
 
 const filterSlice = createSlice({
@@ -22,98 +22,41 @@ const filterSlice = createSlice({
   initialState: initialStateFilter,
   reducers: {
     setFilter(state, action: PayloadAction<FilterInterface>) {
-      state.colors = action.payload.colors;
-      state.prices = action.payload.prices;
-      state.sexes = action.payload.sexes;
-      state.sports = action.payload.sports;
+      state.color = action.payload.color;
+      state.sex = action.payload.sex;
+      state.sport = action.payload.sport;
+      state.price = action.payload.price;
     },
     setSex(state, action: PayloadAction<SexEnum>) {
-      const updatedSexes = [...state.sexes];
-      const index = updatedSexes.indexOf(action.payload);
-      if (index === -1) {
-        updatedSexes.push(action.payload);
+      if (action.payload === state.sex) {
+        state.sex = null;
       } else {
-        updatedSexes.splice(index, 1);
+        state.sex = action.payload;
       }
-      state.sexes = updatedSexes;
     },
     setPrice(state, action: PayloadAction<PriceEnum>) {
-      const updatedPrices = [...state.prices];
-      const index = updatedPrices.indexOf(action.payload);
-      if (index === -1) {
-        updatedPrices.push(action.payload);
+      if (action.payload === state.price) {
+        state.price = null;
       } else {
-        updatedPrices.splice(index, 1);
+        state.price = action.payload;
       }
-      state.prices = updatedPrices;
     },
     setColor(state, action: PayloadAction<ColorItemEnum>) {
-      const updatedColors = [...state.colors];
-      const index = updatedColors.indexOf(action.payload);
-      if (index === -1) {
-        updatedColors.push(action.payload);
+      if (action.payload === state.color) {
+        state.color = null;
       } else {
-        updatedColors.splice(index, 1);
+        state.color = action.payload;
       }
-      state.colors = updatedColors;
     },
     setSport(state, action: PayloadAction<SportEnum>) {
-      const updatedSport = [...state.sports];
-      const index = updatedSport.indexOf(action.payload);
-      if (index === -1) {
-        updatedSport.push(action.payload);
+      if (action.payload === state.sport) {
+        state.sport = null;
       } else {
-        updatedSport.splice(index, 1);
+        state.sport = action.payload;
       }
-      state.sports = updatedSport;
     },
-    getProducts(state, action) {
-      console.log("getProducts");
-
-      if (!state.colors.length && !state.sexes.length && !state.prices.length) {
-        state.dataFiltered = state.products;
-        return;
-      }
-      const sexesResult = state.products.filter((product) =>
-        state.sexes.includes(product.sex)
-      );
-      const pricesResult = state.products.filter((product) => {
-        if (state.prices.length === 0) {
-          return false;
-        }
-
-        if (product.price < 50) {
-          return state.prices.includes(PriceEnum["0-50"]);
-        }
-        if (product.price < 100) {
-          return state.prices.includes(PriceEnum["50-100"]);
-        }
-        if (product.price < 150) {
-          return state.prices.includes(PriceEnum["100-150"]);
-        }
-
-        return state.prices.includes(PriceEnum["150-"]);
-      });
-
-      const colorsResults = state.products.filter((product) => {
-        if (state.colors.length === 0) {
-          return false;
-        }
-
-        if (state.colors.includes(ColorItemEnum.multiple)) {
-          return product.colors.length > 1;
-        }
-
-        for (const pColor of product.colors) {
-          if (state.colors.includes(pColor)) return true;
-        }
-        return false;
-      });
-
-      state.dataFiltered = uniqBy(
-        [...sexesResult, ...pricesResult, ...colorsResults],
-        "id"
-      );
+    getProducts(state, action: PayloadAction<ProductInterface[]>) {
+      state.dataFiltered = action.payload;
     },
   },
 });
