@@ -34,8 +34,13 @@ const ModalFilter: FC<{ isOpen: boolean; onClose: () => void }> = ({
             <PriceMenu />
             <ColorMenu />
           </div>
-          <div className="w-full border-t border-gray-200 border-solid">
-            <h1 className="text-2xl font-semibold mb-4 ">Filtrer</h1>
+          <div className="w-full border-t border-gray-200 border-solid flex flex-row justify-around py-4">
+            <button className="bg-white text-black py-2 px-6 rounded-3xl border border-solid border-gray-300">
+              Effacer(3)
+            </button>
+            <button className="bg-black text-white py-2 px-6 rounded-3xl">
+              Appliquer
+            </button>
           </div>
         </div>
       </div>
