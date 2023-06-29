@@ -3,8 +3,12 @@ import SexMenu from "../../NavBar/SexMenu";
 import PriceMenu from "../../NavBar/PriceMenu";
 import ColorMenu from "../../NavBar/ColorMenu";
 import { useAppDispatch, useAppSelector } from "../../../redux/app/hooks";
-import { selectFilter, setFilter, setSex } from "../../../redux/filter/filter";
-import { SexEnum } from "../../../interface/SexInterface";
+import {
+  initialStateFilter,
+  selectFilter,
+  setFilter,
+  setSex,
+} from "../../../redux/filter/filter";
 
 const ModalFilter: FC<{ isOpen: boolean; onClose: () => void }> = ({
   isOpen,
@@ -41,14 +45,7 @@ const ModalFilter: FC<{ isOpen: boolean; onClose: () => void }> = ({
 
   const handleClickClear = (event: any) => {
     event.preventDefault();
-    dispatch(
-      setFilter({
-        colors: [],
-        prices: [],
-        sexes: [],
-        products: [],
-      })
-    );
+    dispatch(setFilter(initialStateFilter));
   };
 
   return (

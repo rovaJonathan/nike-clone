@@ -8,4 +8,5 @@ export default interface FilterInterface {
   prices: PriceEnum[];
   colors: ColorItemEnum[];
   products: ProductInterface[];
+  dataFiltered: ProductInterface[];
 }
