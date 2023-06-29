@@ -7,8 +7,7 @@ import { PriceEnum } from "../../interface/PriceInterface";
 import { ColorItemEnum } from "../../interface/ColorInterface";
 
 const Body: FC = () => {
-  const { dataFiltered, colors, products, sexes, prices } =
-    useAppSelector(selectFilter);
+  const { colors, products, sexes, prices } = useAppSelector(selectFilter);
   const dispatch = useAppDispatch();
 
   const data = useMemo(() => {
