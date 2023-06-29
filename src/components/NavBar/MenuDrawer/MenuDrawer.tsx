@@ -11,10 +11,10 @@ const MenuDrawer: FC<{ child: JSX.Element; title: string }> = ({
   };
 
   return (
-    <div className="border-t border-gray-200 border-solid border-t-1 mb-2">
-      <div className="flex flex-row justify-between pt-2 items-center pb-2">
+    <div className="border-t border-gray-200 border-solid border-t-1 md:mb-2 mb-6">
+      <div className="flex flex-row justify-between md:pt-2 pt-6 items-center md:pb-2 pb-6">
         <span className="text-sm inline-block mr-2">{title}</span>
-        <div onClick={handleOnClick} className="cursor-pointer">
+        <div onClick={handleOnClick} className="cursor-pointer md:block hidden">
           {isOpen ? (
             <svg
               className="w-[13px] h-[13px] text-gray-800 "
