@@ -50,7 +50,7 @@ const Body: FC = () => {
       return false;
     });
     return uniqBy([...sexesResult, ...pricesResult, ...colorsResults], "id");
-  }, [colors, products, sexes, dispatch]);
+  }, [colors, products, sexes, prices, dispatch]);
 
   return (
     <div className="flex-1 grid grid-cols-2 md:grid-cols-3 gap-2 overflow-scroll max-h-full md:max-h-screen">
